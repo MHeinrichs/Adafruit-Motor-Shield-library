@@ -93,12 +93,30 @@ class AF_Stepper {
   void release(void);
   uint16_t revsteps; // # steps per revolution
   uint8_t steppernum;
-  uint32_t usperstep, steppingcounter;
+  uint32_t usperstep;
  private:
   uint8_t currentstep;
 
 };
 
+class AF_Steppers {
+ public:
+  AF_Steppers(uint16_t);
+  void step(uint16_t steps, uint8_t dir1, uint8_t dir2, uint8_t style = SINGLE);
+  void setSpeed(uint16_t);
+  uint8_t onestep(uint8_t dir1, uint8_t dir2, uint8_t style);
+  void release(void);
+  uint16_t revsteps; // # steps per revolution
+  uint32_t usperstep;
+ private:
+  uint8_t currentstep1;
+  uint8_t currentstep2;
+
+};
+
+
+void nextStep(uint8_t &currentstep, uint8_t &ocrb, uint8_t &ocra, uint8_t dir, uint8_t style);
+void setCoilBits(uint8_t currentstep, uint8_t a, uint8_t b, uint8_t c, uint8_t d, uint8_t style);
 uint8_t getlatchstate(void);
 
 #endif
